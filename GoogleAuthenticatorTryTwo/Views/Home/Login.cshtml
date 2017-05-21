@@ -1,0 +1,57 @@
+﻿@model GoogleAuthenticatorTryTwo.ViewModel.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@if (ViewBag.Status == null || !ViewBag.Status)
+{
+    <!--Show Login Form ; ViewBag.Status is for checking is the user already in our database or not-->
+    <div>@ViewBag.Message</div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                <label for="Username">Username:</label>
+                @Html.TextBoxFor(a => a.Username, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="Password">Password:</label>
+                @Html.TextBoxFor(a => a.Password, new { @class = "form-control", type = "password" })
+            </div>
+            <input type="submit" value="Login" class="btn btn-default" />
+
+            <h5>Don't have an account? Register!</h5>
+            <div>
+                @using (Html.BeginForm("RedirectingToRegister", "Home", FormMethod.Get))
+                {
+                    <input type="submit" value="Register" class="btn btn-default" />
+                }
+            </div>
+        }
+    </div>
+}
+else
+{
+    <!--Show 2FA Verification Form-->
+    <div>@ViewBag.Message</div>
+    <div>
+        <img src="@ViewBag.BarcodeImageUrl" />
+    </div>
+    <div>
+        Manual Setup Code: @ViewBag.SetupCode
+    </div>
+    <div>
+        @using (Html.BeginForm("Verify2FA", "Home", FormMethod.Post))
+        {
+            <input type="text" name="passcode" />
+            <input type="submit" class="btn btn-success" />
+        }
+    </div>
+}
+
+
+

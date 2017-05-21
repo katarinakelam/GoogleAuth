@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+<h2>MyProfile</h2>
+<h5>@ViewBag.Message</h5>
+<div>
+    @using (Html.BeginForm("Logout", "Home", FormMethod.Get))
+    {
+            <input type="submit" value="Logout" class="btn btn-default" />
+    }
+</div>
+

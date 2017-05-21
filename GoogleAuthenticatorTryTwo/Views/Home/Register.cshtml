@@ -1,0 +1,61 @@
+﻿@model GoogleAuthenticatorTryTwo.ViewModel.RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@if (ViewBag.Status == null || !ViewBag.Status)
+{
+    <!--Show Login Form ; ViewBag.Status is for checking is the user already in our database or not-->
+    <div>@ViewBag.Message</div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                <label for="Name">Name:</label>
+                @Html.TextBoxFor(a => a.Name, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="Surname">Surname:</label>
+                @Html.TextBoxFor(a => a.Surname, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="Username">Username:</label>
+                @Html.TextBoxFor(a => a.Username, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="Password">Password:</label>
+                @Html.TextBoxFor(a => a.Password, new { @class = "form-control", type = "password" })
+            </div>
+
+            <div class="form-group">
+                <label for="RetypedPassword">Retype Password:</label>
+                @Html.TextBoxFor(a => a.RetypedPassword, new { @class = "form-control", type = "password" })
+            </div>
+
+            <input type="submit" value="Register" class="btn btn-default" />
+        }
+    </div>
+}
+else
+{
+    <!--Successfull registration-->
+    <div>
+    @using (Html.BeginForm("RedirectingToLogin", "Home", FormMethod.Get))
+    {
+        <div>
+            <h5>@ViewBag.Message</h5>
+            <input type="submit" value="OK" class="btn btn-default" />
+        </div>
+    }
+    </div>
+        
+}
+
+
+
